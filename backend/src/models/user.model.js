@@ -9,6 +9,29 @@ const roles = [
   'client', 'usps'
 ]
 
+const receiverSchema = new Schema({
+  name: String,
+  phone: String,
+  address: String,
+  zip: String
+}, {
+  timestamps: true
+})
+
+const transactionSchema = new Schema({
+  name: String,
+  letterPaperType: String,
+  letterPaperSize: String,
+  coverPaperType: String,
+  coverPaperSize: String,
+  letterData: String,
+  coverData: String,
+  status: String,
+  receiver: [receiverSchema]
+}, {
+  timestamps: true
+})
+
 const userSchema = new Schema({
   email: {
     type: String,
@@ -31,6 +54,7 @@ const userSchema = new Schema({
     default: 'client',
     enum: roles
   }
+  ,transaction: [transactionSchema]  
 }, {
   timestamps: true
 })
