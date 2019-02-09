@@ -6,7 +6,7 @@ const APIError = require('../utils/APIError')
 const Schema = mongoose.Schema
 
 const roles = [
-  'user', 'admin'
+  'client', 'usps'
 ]
 
 const userSchema = new Schema({
@@ -28,7 +28,7 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'user',
+    default: 'client',
     enum: roles
   }
 }, {
@@ -87,14 +87,10 @@ userSchema.statics = {
   async findAndGenerateToken (payload) {
     const { email, password } = payload
     if (!email) throw new APIError('Email must be provided for login')
-
     const user = await this.findOne({ email }).exec()
     if (!user) throw new APIError(`No user associated with ${email}`, httpStatus.NOT_FOUND)
-
     const passwordOK = await user.passwordMatches(password)
-
     if (!passwordOK) throw new APIError(`Password mismatch`, httpStatus.UNAUTHORIZED)
-
     return user
   }
 }
