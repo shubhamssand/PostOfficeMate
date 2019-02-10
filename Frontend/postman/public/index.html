@@ -12,7 +12,6 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    {/* Bootstrap CSS */}
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -75,4 +74,98 @@
   <script src="assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
   <script src="assets/vendor/charts/c3charts/C3chartjs.js"></script>
   <script src="assets/libs/js/dashboard-ecommerce.js"></script>
+
+  <script src="assets/papaparse.js"></script>
+  <script type="text/javascript">
+  window.globalDataArray = null;
+  $(document).ready(function(){
+    
+    
+    
+    $("body").on("click","div",function(){
+        //alert("test");
+    });
+
+
+    $(".file1").on("click",function(){
+
+        $("#f1clicker").click();
+    });
+    $(".file2").on("click",function(){
+
+        $("#f2clicker").click();
+    });
+    $(".file3").on("click",function(){
+
+        $("#f3clicker").click();
+    });
+
+
+    $("#f1clicker").on("change",function(){
+
+        var fileInput = document.getElementById("f1clicker");
+        var reader = new FileReader();
+        $(".file1button").click();
+        reader.onload = function () {
+            console.log(reader);
+            
+        };
+
+
+    });
+
+
+    $(".file1button").on("click",function(){
+        
+        let x = $('#f1clicker').parse({
+            config : {
+                header : true,
+                skipEmptyLines : true,
+                complete : function (results, file) {
+                    console.log("This file done:", file, results);
+                    var string = JSON.stringify(results['data']);
+                    //result.push(string);
+                    console.log("CSV Array: " + string);
+
+                    window.globalDataArray = results;
+                    let d = results;
+                    let retstring = '';
+                    let retstring2 = '';
+                    for(let b=0;b< d.meta.fields.length; b++)
+                    {
+                        retstring = retstring + `<th>${d.meta.fields[b]}</th>`;
+                    }
+
+                    console.log(d.meta.fields);
+                    for(let b=0;b< d.data.length; b++)
+                    {
+                        retstring2 = retstring2 + "<tr>";
+                        for(let c=0 ; c< d.meta.fields.length;c++)
+                        {
+                            retstring2 = retstring2 + `<td>${d.data[b][d.meta.fields[c]]}</td>`;
+                        }
+                        retstring2 = retstring2 + "</tr>";
+                        
+                    }
+                    
+                    console.log(retstring2);
+                    console.log(retstring);
+                    let tx = "<table><thead>"+retstring+"</thead><tbody>"+retstring2+"</tbody></table>"
+                    $("#file1table").html(tx);
+
+
+                    $("#exampleModal").modal("show");
+
+
+
+                }
+            }
+        });
+    })
+
+
+})
+  </script>
+
+
 </html>

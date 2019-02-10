@@ -16,10 +16,10 @@ class App extends Component {
       <BrowserRouter>
       
       <Switch>
-      <Route path="/main" component={Main}/>
-      <Route path="/uspshome" component={USPS}/>
-      <Route path="/pgehome" component={PGE}/>
-      <Route path="/upload" component={UPLOAD}/>
+      <Route path="/main" exact component={Main}/>
+      <Route path="/uspshome" exact component={USPS}/>
+      <Route path="/pgehome" exact component={PGE}/>
+      <Route path="/" exact component={UPLOAD}/>
       </Switch>
       </BrowserRouter>
       </div>

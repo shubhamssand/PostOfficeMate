@@ -30,3 +30,80 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+#f1clicker,#f2clicker,#f3clicker
+{
+    display: none;
+}
+
+.file1
+{
+    cursor: pointer;
+    font-weight: bold;
+    text-align: left;
+}
+
+
+.modal-content
+{
+    height: 80%;
+    overflow-y: scroll;
+}
+
+
+.modal-dialog
+{
+    width : 80% !important;
+    max-width: none !important;
+}
+
+#file1table table
+{
+    width: 100%;
+}
+
+.input-group>.input-group-append:last-child>.btn:not(:last-child):not(.dropdown-toggle), .input-group>.input-group-append:last-child>.input-group-text:not(:last-child), .input-group>.input-group-append:not(:last-child)>.btn, .input-group>.input-group-append:not(:last-child)>.input-group-text, .input-group>.input-group-prepend>.btn, .input-group>.input-group-prepend>.input-group-text
+{
+    width: 150px;
+    background: #005a9c;
+    border: 1px solid #005a9c;
+    color: white;
+    font-weight: 900;
+}
+
+.input-group>.input-group-append>.btn, .input-group>.input-group-append>.input-group-text, .input-group>.input-group-prepend:first-child>.btn:not(:first-child), .input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child), .input-group>.input-group-prepend:not(:first-child)>.btn, .input-group>.input-group-prepend:not(:first-child)>.input-group-text
+{
+    width : 0px;
+    display: none;
+}
+
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+    color: #fff;
+    background: #005a9c !important;
+    border: 1px solid #005a9c !important;
+}
+
+.cbc 
+{
+  padding-left : 200px !important;
+  padding-right : 200px !important;
+}
+
+.file2,.file3
+{
+  text-align: left
+}
+
+.cbc select
+{
+  border-width : 0px !important;
+}
+
+
+.filesubbutton
+{
+  margin: 0 auto;
+}
