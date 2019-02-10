@@ -20,6 +20,9 @@ class UPLOAD extends Component {
             }],
             status:200
         }
+
+
+        this.submitform = this.submitform.bind(this);
     }
 componentDidMount(){
     axios.get("")
@@ -31,16 +34,45 @@ componentDidMount(){
        
     })
 }
+
+submitform()
+{
+
+  let jobname = window.jQuery(".cbc").find("input[type='text']:eq(0)").val();
+ 
+  let letsize = window.jQuery(".cbc").find("select:eq(0) > option:selected").val()
+  let lettype = window.jQuery(".cbc").find("select:eq(1) > option:selected").val()
+
+  let envsize = window.jQuery(".cbc").find("select:eq(2) > option:selected").val()
+  let envtype = window.jQuery(".cbc").find("select:eq(3) > option:selected").val()
+
+  console.log(window.globalDataArray);
+  console.log(letsize);
+  console.log(lettype);
+  console.log(envsize);
+  console.log(envtype);
+  console.log(jobname);
+ 
+  
+}
+
+
+
+
   render() {
     let rows=null
-    if(this.state.status===200 && this.state.rows!==null){
+/*     if(this.state.status===200 && this.state.rows!==null){
         rows =this.state.rows.map(row => {
            return(
                <ROWS data={row}></ROWS>
            )
        }) 
        
-     }
+     } */
+
+
+
+
 
     return (
       <div>
@@ -445,13 +477,14 @@ componentDidMount(){
 
             <div className="dashboard-ecommerce">
               <div className="container-fluid dashboard-content ">
+              <br/>
                 {/* ============================================================== */}
                 {/* pageheader  */}
                 {/* ============================================================== */}
                 <div className="row">
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="page-header">
-                      <h2 className="pageheader-title">USPS HOME </h2>
+                      <h2 className="pageheader-title">USPS Home - Progress Dashboard </h2>
                       <p className="pageheader-text" />
                       <div className="page-breadcrumb">
                         <nav aria-label="breadcrumb">
@@ -506,69 +539,204 @@ componentDidMount(){
                         <div id="sparkline-revenue3" />
                       </div>
                     </div>
-                    
-                  </div>
-                  <div className="row">
-                    {/* ============================================================== */}
-                    {/* ============================================================== */}
-                    {/* recent orders  */}
-                    {/* ============================================================== */}
-                    <div className="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
-                      <div className="card">
-                        <h5 className="card-header">Recent Orders</h5>
-                        <div className="card-body p-0">
-                          <div className="table-responsive">
-                            <table className="table">
-                              <thead className="bg-light">
-                                <tr className="border-0">
-                                  <th className="border-0">#</th>
-                                  <th className="border-0">Name</th>
-                                  <th className="border-0">Jobs Size</th>
-                                  <th className="border-0">Status</th>
-                                  <th className="border-0">Time Stamp</th>
-                                  
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {rows}
-                                
-                                <tr>
-                                  <td colSpan={9}><a href="#" className="btn btn-outline-light float-right">View Details</a></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* ============================================================== */}
-                    {/* end recent orders  */}
-                    {/* ============================================================== */}
-                    {/* ============================================================== */}
-                    {/* customer acquistion  */}
-                    {/* ============================================================== */}
+
                     <div className="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                       <div className="card">
-                        <h5 className="card-header">Customer Acquisition</h5>
                         <div className="card-body">
-                          <div className="ct-chart ct-golden-section" style={{height: '354px'}} />
-                          <div className="text-center">
-                            <span className="legend-item mr-2">
-                              <span className="fa-xs text-primary mr-1 legend-tile"><i className="fa fa-fw fa-square-full" /></span>
-                              <span className="legend-text">Returning</span>
-                            </span>
-                            <span className="legend-item mr-2">
-                              <span className="fa-xs text-secondary mr-1 legend-tile"><i className="fa fa-fw fa-square-full" /></span>
-                              <span className="legend-text">First Time</span>
-                            </span>
+                          <h5 className="text-muted">Jobs Failed</h5>
+                          <div className="metric-value d-inline-block">
+                            <h1 className="mb-1">3</h1>
+                          </div>
+                          <div className="metric-label d-inline-block float-right text-primary font-weight-bold">
+                            
                           </div>
                         </div>
+                        <div id="sparkline-revenue3" />
                       </div>
                     </div>
-                    {/* ============================================================== */}
-                    {/* end customer acquistion  */}
-                    {/* ============================================================== */}
+                    
                   </div>
+             
+
+
+                <div>
+        <div className="row">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div className="card">
+              <h3 className="card-header">Bulk Send</h3>
+              <div className="card-body cbc">
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">Job Name</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <input type="text" id="text1" className="form-control" placeholder="Enter job name..." />
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">Letter File</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control file2">
+                      Upload Letter File
+                    </div>
+                    <input type="file" id="f2clicker" />
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary">Letter Size</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control">
+                      <select id="papertypesel1" className="form-control form-control-sm">
+                        <option>Select an option</option>
+                        <option>A2</option>
+                        <option>A3</option>
+                        <option>A4</option>
+                        <option>A5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary">Letter Type</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control">
+                      <select id="papertypesel1" className="form-control form-control-sm">
+                        <option>Select an option</option>
+                        <option>Bond Paper</option>
+                        <option>Gloss Paper</option>
+                        <option>Matt Paper</option>
+                        <option>Recycled Paper</option>
+                        <option>Silky Paper</option>
+                        <option>Watermark Paper</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">View File</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control file3">
+                      Upload Envelope Size
+                    </div>
+                    <input type="file" id="f3clicker" />
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary">Envelope Size</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control">
+                      <select className="form-control form-control-sm">
+                        <option>Select an option</option>
+                        <option>A1</option>
+                        <option>A2</option>
+                        <option>A3</option>
+                        <option>A4</option>
+                        <option>A5</option>
+                        <option>A6</option>
+                        <option>A7</option>
+                        <option>A8</option>
+                        <option>A9</option>
+                        <option>A10</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary">Envelope Type</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control">
+                      <select id="papertypesel1" className="form-control form-control-sm">
+                        <option>Select an option</option>
+                        <option>Bond Paper</option>
+                        <option>Gloss Paper</option>
+                        <option>Matt Paper</option>
+                        <option>Recycled Paper</option>
+                        <option>Silky Paper</option>
+                        <option>Watermark Paper</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <div className="buttoncontainer">
+                  <div className="input-group mb-12">
+                    <div className="input-group-prepend be-addon">
+                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">Client Details</button>
+                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
+                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
+                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
+                                            </div>*/}
+                    </div>
+                    <div className="form-control file1">
+                      Upload Contact &amp; Address Details
+                    </div>
+                    <input type="file" id="f1clicker" />
+                  </div>
+                </div>
+
+                <br/>
+                <div className="row">
+        <button tabIndex={-1} type="button" onClick={this.submitform} className="btn btn-secondary filesubbutton">Upload and Print</button>
+        </div>
+              </div>
+            </div>
+          </div>
+
+        
+
+
+        </div>
+
+
+
+
                   <div className="row">
                     {/* ============================================================== */}
                     {/* product category  */}
@@ -884,171 +1052,6 @@ componentDidMount(){
                 </div>
 
 
-                <div>
-        <div className="row">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div className="card">
-              <h5 className="card-header">Bulk Send</h5>
-              <div className="card-body">
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">Job Name</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <input type="text" id="text1" className="form-control" placeholder="Enter job name..." />
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">Letter File</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control file2">
-                      Upload Letter File
-                    </div>
-                    <input type="file" id="f2clicker" />
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary">Letter Size</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control">
-                      <select id="papertypesel1" className="form-control form-control-sm">
-                        <option>Select an option</option>
-                        <option>A2</option>
-                        <option>A3</option>
-                        <option>A4</option>
-                        <option>A5</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary">Letter Type</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control">
-                      <select id="papertypesel1" className="form-control form-control-sm">
-                        <option>Select an option</option>
-                        <option>Bond Paper</option>
-                        <option>Gloss Paper</option>
-                        <option>Matt Paper</option>
-                        <option>Recycled Paper</option>
-                        <option>Silky Paper</option>
-                        <option>Watermark Paper</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">View File</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control file3">
-                      Upload Envelope Size
-                    </div>
-                    <input type="file" id="f3clicker" />
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary">Envelope Size</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control">
-                      <select className="form-control form-control-sm">
-                        <option>Select an option</option>
-                        <option>A1</option>
-                        <option>A2</option>
-                        <option>A3</option>
-                        <option>A4</option>
-                        <option>A5</option>
-                        <option>A6</option>
-                        <option>A7</option>
-                        <option>A8</option>
-                        <option>A9</option>
-                        <option>A10</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary">Envelope Type</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control">
-                      <select id="papertypesel1" className="form-control form-control-sm">
-                        <option>Select an option</option>
-                        <option>Bond Paper</option>
-                        <option>Gloss Paper</option>
-                        <option>Matt Paper</option>
-                        <option>Recycled Paper</option>
-                        <option>Silky Paper</option>
-                        <option>Watermark Paper</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <br />
-                <div className="buttoncontainer">
-                  <div className="input-group mb-12">
-                    <div className="input-group-prepend be-addon">
-                      <button tabIndex={-1} type="button" className="btn btn-secondary file1button">Client Details</button>
-                      <button tabIndex={-1} data-toggle="dropdown" type="button" className="btn btn-secondary dropdown dropdown-toggle-split"><span className="sr-only">Toggle Dropdown</span></button>
-                      {/* <div class="dropdown-menu"><a href="#" class="dropdown-item">Action</a><a href="#" class="dropdown-item">Another action</a><a href="#" class="dropdown-item">Something else here</a>
-                                                <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Separated link</a>
-                                            </div>*/}
-                    </div>
-                    <div className="form-control file1">
-                      Upload Contact &amp; Address Details
-                    </div>
-                    <input type="file" id="f1clicker" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/*
                             PRINT IN THE MODAL
@@ -1071,21 +1074,7 @@ componentDidMount(){
             </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div className="page-header">
-              <h2 className="pageheader-title">Progress Dashboard </h2>
-              <p className="pageheader-text" />
-              <div className="page-breadcrumb">
-                <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href="#" className="breadcrumb-link">Dashboard</a></li>
-                  </ol>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </div>
 
 
