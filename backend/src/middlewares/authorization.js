@@ -14,11 +14,11 @@ const handleJWT = (req, res, next, roles) => async (err, user, info) => {
     error ? error.message : 'Unauthorized',
     httpStatus.UNAUTHORIZED
   )
-
   // log user in
   try {
     if (error || !user) throw error
     await logIn(user, { session: false })
+    
   } catch (e) {
     return next(apiError)
   }
@@ -27,7 +27,8 @@ const handleJWT = (req, res, next, roles) => async (err, user, info) => {
   if (!roles.includes(user.role)) {
     return next(new APIError('Forbidden', httpStatus.FORBIDDEN))
   }
-
+  
+  
   req.user = user
 
   return next()
