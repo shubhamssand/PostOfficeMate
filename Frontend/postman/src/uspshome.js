@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import uspslogo from './uspsLogo.png';
-import ROWS from './detailrows';
+import USPSROWS from './uspsrows';
 import axios from 'axios';
 import './App.css';
 
@@ -9,15 +9,41 @@ class USPS extends Component {
     constructor(props){
         super(props);
         this.state={
-            rows:[{
-                id:1,
-                name:"Saket",
-                jobsize:100,
-                status:"Pending",
-                timestamp: new Date().toDateString()
-            }],
-            status:200
-        }
+          rows:[{
+              id:1,
+              name:"PG & E",
+              jobsize:800,
+              status:"InQueue",
+              timestamp: new Date().toDateString()
+          },{
+            id:2,
+            name:"Chase Bank",
+            jobsize:3,
+            status:"Done",
+            timestamp: new Date().toDateString()
+        },{
+          id:3,
+          name:"McDonalds",
+          jobsize:68,
+          status:"InQueue",
+          timestamp: new Date().toDateString()
+      },{
+        id:4,
+        name:"Adams",
+        jobsize:4,
+        status:"Done",
+        timestamp: new Date().toDateString()
+    },{
+      id:5,
+      name:"Saket",
+      jobsize:7,
+      status:"InQueue",
+      timestamp: new Date().toDateString()
+  }],
+          status:200
+      }
+      
+      
     }
 componentDidMount(){
     axios.get("")
@@ -29,12 +55,30 @@ componentDidMount(){
        
     })
 }
+
   render() {
+
+    let inqueue=0
+    let done=0
+    let total=0
+  
+    let a=this.state.rows.map(row=>{
+      total=total+row.jobsize;
+      if (row.status=="InQueue"){
+        inqueue=inqueue+row.jobsize;
+      }
+      else if (row.status=="Done"){
+        done=done+row.jobsize;
+      }
+     
+    })
+
+
     let rows=null
     if(this.state.status===200 && this.state.rows!==null){
         rows =this.state.rows.map(row => {
            return(
-               <ROWS data={row}></ROWS>
+               <USPSROWS data={row}></USPSROWS>
            )
        }) 
        
@@ -464,7 +508,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">Total Jobs</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">4000</h1>
+                            <h1 className="mb-1">{total}</h1>
                           </div>
                           
                         </div>
@@ -476,7 +520,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">Jobs in Queue</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">2000</h1>
+                            <h1 className="mb-1">{inqueue}</h1>
                           </div>
                           
                         </div>
@@ -488,7 +532,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">Jobs Done</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">400</h1>
+                            <h1 className="mb-1">{done}</h1>
                           </div>
                           <div className="metric-label d-inline-block float-right text-primary font-weight-bold">
                             

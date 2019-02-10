@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import uspslogo from './uspsLogo.png';
+import uspslogo from './pge_reg_logo.png';
 import ROWS from './detailrows';
 import axios from 'axios';
 import './App.css';
@@ -15,7 +15,31 @@ class PGE extends Component {
                 jobsize:100,
                 status:"Pending",
                 timestamp: new Date().toDateString()
-            }],
+            },{
+              id:2,
+              name:"Aniket",
+              jobsize:3,
+              status:"Printing",
+              timestamp: new Date().toDateString()
+          },{
+            id:1,
+            name:"Varun",
+            jobsize:68,
+            status:"Transit",
+            timestamp: new Date().toDateString()
+        },{
+          id:1,
+          name:"Adams",
+          jobsize:4,
+          status:"Pending",
+          timestamp: new Date().toDateString()
+      },{
+        id:1,
+        name:"Saket",
+        jobsize:7,
+        status:"Completed",
+        timestamp: new Date().toDateString()
+    }],
             status:200
         }
     }
@@ -30,6 +54,26 @@ componentDidMount(){
     })
 }
   render() {
+    let printed=0
+    let intransit=0
+    let total=0
+    let pending=0
+    let completed=0
+    let a=this.state.rows.map(row=>{
+      total=total+row.jobsize;
+      if (row.status=="Completed"){
+        completed=completed+row.jobsize;
+      }
+      else if (row.status=="Transit"){
+        intransit=intransit+row.jobsize;
+      }
+      else if (row.status=="Pending"){
+        pending=pending+row.jobsize;
+      }
+      else if (row.status=="Printing"){
+        printed=printed+row.jobsize;
+      }
+    })
     let rows=null
     if(this.state.status===200 && this.state.rows!==null){
         rows =this.state.rows.map(row => {
@@ -464,7 +508,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">Total Jobs</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">4000</h1>
+                            <h1 className="mb-1">{total}</h1>
                           </div>
                           
                         </div>
@@ -476,7 +520,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">In Transit</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">2000</h1>
+                            <h1 className="mb-1">{intransit}</h1>
                           </div>
                           
                         </div>
@@ -488,7 +532,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">Printing</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">400</h1>
+                            <h1 className="mb-1">{printed}</h1>
                           </div>
                           <div className="metric-label d-inline-block float-right text-primary font-weight-bold">
                             
@@ -502,7 +546,7 @@ componentDidMount(){
                         <div className="card-body">
                           <h5 className="text-muted">Completed</h5>
                           <div className="metric-value d-inline-block">
-                            <h1 className="mb-1">50</h1>
+                            <h1 className="mb-1">{completed}</h1>
                           </div>
                           <div className="metric-label d-inline-block float-right text-primary font-weight-bold">
                             
