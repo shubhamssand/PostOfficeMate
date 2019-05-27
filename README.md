@@ -1,2 +1,2 @@
 # POSTMAN
-USPS Hackathon @SJSU 2019
+USPS SJSU Hackathon @SJSU 2019
